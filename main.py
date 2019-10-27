@@ -1,9 +1,15 @@
-from flask import Flask, render_template
+import os
+from flask import Flask
+from handlers import public
+
 app = Flask(__name__)
 
-@app.route('/')
-def homepage():
-    return render_template ('main.html')
+# URLs
+
+app.add_url_rule(rule="/", endpoint="main", view_func=public.main, methods=["GET", "POST"])
 
 if __name__ == "__main__":
-    app.run()
+    if os.getenv('GAE_ENV', '').startswith('standard'):
+        app.run()  # production
+    else:
+        app.run(port=8080, host="localhost", debug=True)  # localhost.run()
