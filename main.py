@@ -1,5 +1,5 @@
 import os
-from flask import Flask
+from flask import Flask, url_for
 from handlers import public
 
 app = Flask(__name__)
